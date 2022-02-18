@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.moretti.testeagrotis.entities.Usuario;
 import com.moretti.testeagrotis.repositories.UsuarioRepository;
+import com.moretti.testeagrotis.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class UsuarioService {
@@ -25,7 +26,7 @@ public class UsuarioService {
 	public Usuario FindById(Long id)
 	{
 		Optional<Usuario> rt = repository.findById(id);
-		return rt.get();
+		return rt.orElseThrow(() -> new ResourceNotFoundException(id) );
 	}
 	
 	public Usuario Insert(Usuario u)
