@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.moretti.testeagrotis.entities.Laboratorio;
 import com.moretti.testeagrotis.repositories.LaboratorioRepository;
+import com.moretti.testeagrotis.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class LaboratorioService {
@@ -25,7 +26,26 @@ public class LaboratorioService {
 	public Laboratorio FindById(Long id)
 	{
 		Optional<Laboratorio> rt = repository.findById(id);
-		return rt.get();
+		return rt.orElseThrow(() -> new ResourceNotFoundException(id)) ;
+	}
+	
+	public Laboratorio Insert (Laboratorio l)
+	{
+		if(l.getNome() != null) {
+			return repository.save(l);
+		}
+		throw new IllegalArgumentException();
+		//return null;
+	}
+	
+	public Laboratorio Update (Long id, Laboratorio l)
+	{
+		if(l.getNome() != null) {
+			Laboratorio old = repository.getReferenceById(id);
+			old.setNome(l.getNome());
+			return repository.save(old);
+		}
+		throw new IllegalArgumentException();
 	}
 
 }

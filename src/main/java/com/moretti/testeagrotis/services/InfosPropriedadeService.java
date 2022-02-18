@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.moretti.testeagrotis.entities.InfosPropriedade;
 import com.moretti.testeagrotis.repositories.InfosPropriedadeRepository;
+import com.moretti.testeagrotis.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class InfosPropriedadeService {
@@ -24,6 +25,22 @@ public class InfosPropriedadeService {
 	public InfosPropriedade FindById(Long id)
 	{
 		Optional<InfosPropriedade> rt = repository.findById(id);
-		return rt.get();
+		return rt.orElseThrow(() -> new ResourceNotFoundException(id)) ;
+	}
+	
+	public InfosPropriedade Insert(InfosPropriedade ip)
+	{
+		if(ip.getNome() != null) {
+			return repository.save(ip);
+		}
+		throw new IllegalArgumentException();
+	}
+	public InfosPropriedade Update(Long id, InfosPropriedade ip){
+		if(ip.getNome() != null) {
+			InfosPropriedade old = repository.getReferenceById(id);
+			old.setNome(ip.getNome());
+			return repository.save(old);
+		}
+		throw new IllegalArgumentException();
 	}
 }

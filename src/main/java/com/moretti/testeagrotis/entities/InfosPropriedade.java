@@ -16,7 +16,7 @@ public class InfosPropriedade implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String name;
+	private String nome;
 	
 	public InfosPropriedade() {
 		
@@ -25,7 +25,7 @@ public class InfosPropriedade implements Serializable {
 	public InfosPropriedade(Long id, String name) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.nome = name;
 	}
 
 	public Long getId() {
@@ -36,12 +36,12 @@ public class InfosPropriedade implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNome(String name) {
+		this.nome = name;
 	}
 
 	@Override
