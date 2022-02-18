@@ -37,4 +37,29 @@ public class UsuarioService {
 		Usuario rt = repository.save(u);
 		return rt;
 	}
+	
+	public void Delete(Long id) {
+		repository.deleteById(id);
+	}
+	
+	public Usuario Update(Long id, Usuario obj) {
+		if(obj.getLaboratorio() == null || obj.getInfoPropriedade() == null) 
+		{
+			throw new IllegalArgumentException("lab and info cannot be null");
+		}
+		Usuario old = repository.getReferenceById(id);
+		UpdateUser(old,obj);
+		return repository.save(old);
+	}
+
+	private void UpdateUser(Usuario old, Usuario obj) {
+		old.setNome(obj.getNome());
+		old.setDataInicial(obj.getDataInicial());
+		old.setDataFinal(obj.getDataFinal());
+		old.setCnpj(obj.getCnpj());
+		old.setInfoPropriedade(obj.getInfoPropriedade());
+		old.setLaboratorio(obj.getLaboratorio());
+		old.setObservacoes(obj.getObservacoes());
+		
+	}
 }
