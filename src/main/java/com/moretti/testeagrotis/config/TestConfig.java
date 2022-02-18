@@ -2,7 +2,6 @@ package com.moretti.testeagrotis.config;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -35,7 +34,7 @@ public class TestConfig implements CommandLineRunner {
 		Laboratorio l1 = new Laboratorio(null,"Nome exemplo do laboratório");
 		labrepository.save(l1);
 		
-		Usuario u1 = new Usuario(null, Instant.now(), Instant.now().plus(1, ChronoUnit.DAYS),i1, "XXX.XXX.XXX/0001.XXX",l1,"Teste");
+		Usuario u1 = new Usuario(null, "Usuario Teste" , Instant.now(), Instant.now().plus(1, ChronoUnit.DAYS),i1, "XXX.XXX.XXX/0001.XXX",l1,"Teste");
 		usurepository.save(u1);
 	}
 }

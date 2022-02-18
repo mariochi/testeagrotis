@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Usuario implements Serializable{
 
@@ -19,7 +21,11 @@ public class Usuario implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	private String nome;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant dataInicial;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant dataFinal;
 	@ManyToOne
 	@JoinColumn(name = "info_id")
@@ -38,6 +44,12 @@ public class Usuario implements Serializable{
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public String getNome()	{
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 	public Instant getDataInicial() {
 		return dataInicial;
@@ -96,10 +108,11 @@ public class Usuario implements Serializable{
 	public Usuario() {
 	
 	}
-	public Usuario(Long id, Instant dataInicial, Instant dataFinal, InfosPropriedade infoPropriedade, String cnpj,
+	public Usuario(Long id, String nome, Instant dataInicial, Instant dataFinal, InfosPropriedade infoPropriedade, String cnpj,
 			Laboratorio laboratorio, String observacoes) {
 		super();
 		this.id = id;
+		this.nome = nome;
 		this.dataInicial = dataInicial;
 		this.dataFinal = dataFinal;
 		this.infoPropriedade = infoPropriedade;
